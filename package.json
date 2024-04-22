@@ -1,6 +1,6 @@
 {
   "name": "e-commerce-db",
-  "version": "DEVELOPING",
+  "version": "1.0.0",
   "description": "E-Commerce DataBase",
   "main": "main.js",
   "type": "module",
