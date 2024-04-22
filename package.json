@@ -2,7 +2,7 @@
   "name": "e-commerce-db",
   "version": "1.0.0",
   "description": "E-Commerce DataBase",
-  "main": "main.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon"
@@ -15,7 +15,7 @@
     "nodemon": "3.1.0"
   },
   "dependencies": {
-    "@libsql/client": "^0.6.0",
+    "@libsql/client": "0.6.0",
     "cors": "2.8.5",
     "express": "4.19.2",
     "mysql2": "3.9.6",
