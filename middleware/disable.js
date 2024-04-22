@@ -1,0 +1,1 @@
+export const disable = 'x-powered-by'
