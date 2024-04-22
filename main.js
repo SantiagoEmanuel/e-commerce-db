@@ -21,4 +21,6 @@ app.use((req, res) => {
      res.status(404).json({ status: 404, message: 'Not Found' })
 })
 
-app.listen(PORT)
+app.listen(PORT, () => {
+     console.log(PORT)
+})
