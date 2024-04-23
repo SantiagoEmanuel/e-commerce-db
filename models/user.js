@@ -8,7 +8,7 @@ export class UserModel {
 
           // SQL in TURSO
           const { rows } = await db.execute({
-               sql: 'select username, email, first_name, last_name, status from users where username = ? and password = ?',
+               sql: 'select id, username, email, first_name, last_name, status from users where username = ? and password = ?',
                args: [username, password]
           })
 
@@ -37,12 +37,5 @@ export class UserModel {
           } catch (error) {
                throw new Error({ error: error.message })
           }
-
-          // const data = await db.query('select username, email, first_name, last_name, status from users where username = ? and password = ?', [username, password])
-          const { rows } = await db.execute({
-               sql: 'select username, password from users where username = ? and password = ?',
-               args: [username, password]
-          })
-          return rows;
      }
 }
