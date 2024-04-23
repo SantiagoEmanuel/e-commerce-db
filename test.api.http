@@ -1,29 +1,29 @@
 # PRUEBAS EN LOCALHOST CON UNA BASE DE DATOS LOCAL.
 
 ### GET
-GET http://localhost:1234/products
+GET http://localhost:5000/products
 
 ###
-GET http://localhost:1234/products/categories/deportes
+GET http://localhost:5000/products/categories/deportes
 
 ### POST, Create product
-POST http://localhost:1234/products
+POST http://localhost:5000/products
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTM4NzQyOTEsImV4cCI6MTcxMzg3NDQxMX0.ajNFPiowkXwIho8_xRQi-Q2iSov5kj-KYwAV3gU5FkQ
 
 {
- "title": "Pelota de Voley",
- "imageUrl": "https://monterosport.com.ar/wp-content/uploads/2016/08/pelota-voley-pintier-super-extra-1.jpg",
- "description": "Pelota de voley marca Prittier, calidad profesional para interior, industria Argentina.",
- "stock": 150,
- "category":"deportes",
- "price": 97650
+ "title": "Pelota de Fútbol",
+ "imageUrl": "https://imgs.search.brave.com/isdoTExxPQ1-gvbGjrq4t8u5D51WmCNhNG7xmHOEYvs/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9jb250/ZW50cy5tZWRpYWRl/Y2F0aGxvbi5jb20v/bTMxNjU5ODUvayRl/ODM1NDUyM2E1YjFl/NDZiMGE2ZmEyYjEx/YzMzNGJjMy9zcS8x/NGQxZDE2Ny1jNTE1/LTQ2OTgtODJhOS0x/NDA1MzMzNDRmZjVf/YzRjMTRjMjIuanBn/P2Zvcm1hdD1hdXRv/JmY9ODAweDA",
+ "description": "Pelota de fútbol marca Adidas, calidad profesional para tener un partido igual que los profesionales.",
+ "stock": 10,
+ "category":"deportes"
 }
 
 ### GET user
-GET http://localhost:1234/user?username=pruebaNewUser1&password=prueba1234
+GET http://localhost:5000/user?username=pruebaNewUser1&password=prueba5000
 
 ### POST
-POST http://localhost:1234/user
+POST http://localhost:5000/user
 Content-Type: application/json
 
 {
@@ -33,3 +33,13 @@ Content-Type: application/json
      "email": "santiagomustafa1212@gmail.com",
      "password": "thisismypassword"
 }
+
+### GET CART 
+GET http://localhost:5000/cart
+user_ID: 8
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTM4ODkwMTUsImV4cCI6MTcxMzg4OTEzNX0.7eI5worTxn_hjHc_2x9w7YNfFM1heXeitvWIKLrlnXg
+
+### POST CART
+POST  http://localhost:5000/cart
+user_cart: [2]
+user_id: 8
