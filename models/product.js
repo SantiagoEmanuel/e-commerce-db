@@ -1,17 +1,16 @@
-// import { db } from "../db/sql.js";
 import { db } from "../db/sqlite.js";
+import { v4 as uuid } from "uuid";
 
 export class ProductModel {
      static async getAll() {
-          // const [rows] = await db.query('select * from products;');
           const { rows } = await db.execute(
                'select * from products;'
           )
+
           return rows;
      }
 
      static async getById({ id }) {
-          // const [results] = await db.query(`select * from products where id = ?;`, [id])
           const { rows } = await db.execute({
                sql: 'select * from products where id = ?',
                args: [id]
@@ -20,37 +19,50 @@ export class ProductModel {
      }
 
      static async getByCategory({ category }) {
-          // const [result] = await db.query(`select * from products where category = ?;`, [category]);
           const { rows } = await db.execute({
-               sql: 'select * from products where category = ?',
+               sql: 'select id_product from product_categories where category = ?',
                args: [category]
           })
-          return rows;
+
+          return rows
      }
 
      static async addProduct(input) {
+          const id = uuid()
 
           const {
                title,
                price,
                description,
-               category,
                imageUrl,
-               stock
+               stock,
+               category
           } = input
 
           try {
-               // await db.query(`insert into products (title, description, category, image, price) values (?,?,?,?,?);`, [title, description, category, imageUrl, price])
-
                db.execute({
-                    sql: 'insert into products (title, description, category, imageUrl, price, stock) values (?,?,?,?,?,?);',
-                    args: [title, description, category, imageUrl, price, stock]
+                    sql: 'insert into products (id, title, description, imageUrl, price, stock) values (?,?,?,?,?,?);',
+                    args: [id, title, description, imageUrl, price, stock]
                })
-
-               return true
           } catch (e) {
                throw new Error("Error al crear el producto!")
           }
+          try {
+               db.execute({
+                    sql: 'insert into product_categories ( id_product, category ) values (?,?);',
+                    args: [id, category]
+               })
+          } catch (e) {
+               throw new Error("Error al crear el producto!")
+          }
+     }
 
+     static async getProductCategory(id) {
+          const { rows } = await db.execute({
+               sql: 'select category from product_categories where id_product = ?',
+               args: [id]
+          })
+
+          return rows;
      }
 }

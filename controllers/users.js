@@ -6,7 +6,7 @@ export class UserController {
      static async getUser(req, res) {
           const secret = process.env.SECRET_KEY
 
-          const { username, password } = req.query;
+          const { username, password } = req.body;
 
           const result = await UserModel.getUser({ username: username, password: password });
 
@@ -22,7 +22,7 @@ export class UserController {
           },
                secret,
                {
-                    expiresIn: '1h',
+                    expiresIn: 240,
                })
 
           res.json({ userInfo: result[0], token: token }).status(200)

@@ -10,9 +10,9 @@ export class CartController {
 
           const cart = [];
 
-          productsID.map(async ({ id_product, count }, index) => {
+          productsID.map(async ({ id_product, COUNT }, index) => {
                const rows = await ProductModel.getById({ id: id_product })
-               rows.push({ count: count })
+               rows.push({ count: COUNT })
 
                cart.push(rows)
 
@@ -23,21 +23,25 @@ export class CartController {
      }
 
      static async addCart(req, res) {
-          const cart = JSON.parse(req.headers.user_cart);
-          const id = JSON.parse(req.headers.user_id)
+          const cart = req.body.user_cart;
+          const id = req.body.user_id;
 
-          const rows = CartModel.getIdProduct(id);
+          const rows = await CartModel.getIdProduct(id);
 
-          if (rows.some(({ id_product }) => id_product == cart[0])) {
-               rows.map(({ id_product, count }) => {
-                    if (id_product == cart[0]) {
-                         CartModel.updateCart(count, id_product, id);
+          console.log(rows);
+
+          if (rows.some(({ id_product }) => id_product == cart)) {
+               rows.map(({ id_product, COUNT }) => {
+                    if (id_product == cart) {
+                         CartModel.updateCart(COUNT, id_product, id);
                     }
                })
           } else {
-               cart.map((newProduct) => {
-                    CartModel.addCart(id, newProduct);
-               })
+               CartModel.addCart(id, cart)
           }
+
+          return res.json({
+               cart: 'carrito actualizado'
+          }).status(200)
      }
 }

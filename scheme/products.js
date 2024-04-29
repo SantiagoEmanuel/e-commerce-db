@@ -5,7 +5,7 @@ const productScheme = object({
      imageUrl: string().url(),
      description: string().min(64),
      stock: number().positive(),
-     category: string().min(2),
+     category: string(),
      price: number().positive()
 });
 
