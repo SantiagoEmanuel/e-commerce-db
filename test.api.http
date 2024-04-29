@@ -4,42 +4,58 @@
 GET http://localhost:5000/products
 
 ###
-GET http://localhost:5000/products/categories/deportes
+GET http://localhost:5000/products/categories/futbol
 
 ### POST, Create product
 POST http://localhost:5000/products
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTM4NzQyOTEsImV4cCI6MTcxMzg3NDQxMX0.ajNFPiowkXwIho8_xRQi-Q2iSov5kj-KYwAV3gU5FkQ
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTM5Njk2NDgsImV4cCI6MTcxMzk2OTg4OH0.eHYx7allOlSXg2M9ol0Fertyyr_shStT69_o8GxVvs0
+
 
 {
- "title": "Pelota de Fútbol",
- "imageUrl": "https://imgs.search.brave.com/isdoTExxPQ1-gvbGjrq4t8u5D51WmCNhNG7xmHOEYvs/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9jb250/ZW50cy5tZWRpYWRl/Y2F0aGxvbi5jb20v/bTMxNjU5ODUvayRl/ODM1NDUyM2E1YjFl/NDZiMGE2ZmEyYjEx/YzMzNGJjMy9zcS8x/NGQxZDE2Ny1jNTE1/LTQ2OTgtODJhOS0x/NDA1MzMzNDRmZjVf/YzRjMTRjMjIuanBn/P2Zvcm1hdD1hdXRv/JmY9ODAweDA",
- "description": "Pelota de fútbol marca Adidas, calidad profesional para tener un partido igual que los profesionales.",
- "stock": 10,
- "category":"deportes"
+ "title": "BOTINES COPA PURE II",
+ "imageUrl": "https://imgs.search.brave.com/YnGyIaIvVTl0_tPAem3XV3Ov7IE121mhoG4Kf07Bs4Q/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMuYWRpZGFzLmNv/bS9pbWFnZXMvd18z/ODMsaF8zODMsZl9h/dXRvLHFfYXV0byxm/bF9sb3NzeSxjX2Zp/bGwsZ19hdXRvL2Zm/NzFkYjFjZTU5MDRm/ZjJhOWY3ODk4NjQ0/NTQ5ODRjXzkzNjYv/Ym90aW5lcy1jb3Bh/LXB1cmUtaWktbGVh/Z3VlLmpwZw",
+ "description": "***UNISEX, HORMA GRANDE*** Para pies delgados recomendamos comprar el talle inferior.",
+ "stock": 5,
+ "price": 149999,
+ "category": "futbol"
 }
 
 ### GET user
-GET http://localhost:5000/user?username=pruebaNewUser1&password=prueba5000
+GET http://localhost:5000/user
+Content-Type: application/json
 
-### POST
+{
+     "username": "santiago",
+     "password": "Gorgisan-1145"
+}
+
+### POST create user
 POST http://localhost:5000/user
 Content-Type: application/json
 
 {
-     "username": "prueba2",
+     "username": "prueba4",
      "first_name": "Santiago Emaunel",
      "last_name": "Mustafa Font",
-     "email": "santiagomustafa1212@gmail.com",
+     "email": "santiagomustafa4@gmail.com",
      "password": "thisismypassword"
 }
 
 ### GET CART 
 GET http://localhost:5000/cart
 user_ID: 8
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTM4ODkwMTUsImV4cCI6MTcxMzg4OTEzNX0.7eI5worTxn_hjHc_2x9w7YNfFM1heXeitvWIKLrlnXg
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTQ0MTM3MTksImV4cCI6MTcxNDQxMzk1OX0.xOC2tbpTJPirLngwxDzRIfkQupYuOxR3VlQZCdDp5Ds
 
 ### POST CART
 POST  http://localhost:5000/cart
-user_cart: [2]
-user_id: 8
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTQ0MTM3MTksImV4cCI6MTcxNDQxMzk1OX0.xOC2tbpTJPirLngwxDzRIfkQupYuOxR3VlQZCdDp5Ds
+Content-Type: application/json
+
+{
+     "user_cart": "a97632a2-b974-4b7e-871f-bd17c3e14767",
+     "user_id": 8
+}
+
+###
+GET HTTP://LOCALHOST:5000/categories
