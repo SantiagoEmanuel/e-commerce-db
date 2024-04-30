@@ -1,5 +1,5 @@
 import express, { json } from 'express';
-import cors from 'cors';
+import { corsMiddleware } from './middleware/corsMiddleware.js';
 import { disable } from './middleware/disable.js';
 import { productRouter } from './routes/products.js';
 import { userRouter } from './routes/users.js'
@@ -10,7 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(json())
-app.use(cors());
+app.use(corsMiddleware());
 app.disable(disable)
 
 // TODO ▶️ create "categories" route and create categories in database, create the reference with products.
