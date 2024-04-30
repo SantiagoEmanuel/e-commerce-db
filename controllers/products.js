@@ -1,4 +1,3 @@
-import { db } from "../db/sqlite.js";
 import { ProductModel } from "../models/product.js";
 import { validateProduct } from "../scheme/products.js";
 
