@@ -4,15 +4,14 @@ import { v4 as uuid } from "uuid";
 export class ProductModel {
      static async getAll() {
           const { rows } = await db.execute(
-               'select * from products;'
+               'select * from products join product_categories on products.id = product_categories.id_product;'
           )
-
           return rows;
      }
 
      static async getById({ id }) {
           const { rows } = await db.execute({
-               sql: 'select * from products where id = ?',
+               sql: 'SELECT * FROM product_categories, products WHERE product_categories.id_product = ?;',
                args: [id]
           })
           return rows;
@@ -20,10 +19,9 @@ export class ProductModel {
 
      static async getByCategory({ category }) {
           const { rows } = await db.execute({
-               sql: 'select id_product from product_categories where category = ?',
+               sql: 'select * from products where id in (select id_product from product_categories where category = ?);',
                args: [category]
           })
-
           return rows
      }
 
@@ -55,14 +53,5 @@ export class ProductModel {
           } catch (e) {
                throw new Error("Error al crear el producto!")
           }
-     }
-
-     static async getProductCategory(id) {
-          const { rows } = await db.execute({
-               sql: 'select category from product_categories where id_product = ?',
-               args: [id]
-          })
-
-          return rows;
      }
 }
