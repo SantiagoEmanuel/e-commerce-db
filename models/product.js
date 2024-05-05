@@ -11,7 +11,7 @@ export class ProductModel {
 
      static async getById({ id }) {
           const { rows } = await db.execute({
-               sql: 'SELECT * FROM product_categories, products WHERE product_categories.id_product = ?;',
+               sql: 'SELECT * FROM products JOIN product_categories ON products.id = product_categories.id_product where id_product = ?',
                args: [id]
           })
           return rows;
@@ -19,7 +19,7 @@ export class ProductModel {
 
      static async getByCategory({ category }) {
           const { rows } = await db.execute({
-               sql: 'select * from products where id in (select id_product from product_categories where category = ?);',
+               sql: 'SELECT * FROM products JOIN product_categories ON products.id = product_categories.id_product where category = ?;',
                args: [category]
           })
           return rows
