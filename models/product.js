@@ -38,20 +38,24 @@ export class ProductModel {
           } = input
 
           try {
-               db.execute({
+               const x = await db.execute({
                     sql: 'insert into products (id, title, description, imageUrl, price, stock) values (?,?,?,?,?,?);',
-                    args: [id, title, description, imageUrl, price, stock]
+                    args: [id, title, description, imageUrl, price, stock],
                })
+               try {
+                    const x2 = await db.execute({
+                         sql: 'insert into product_categories ( id_product, category ) values (?,?);',
+                         args: [id, category]
+                    })
+                    const result = [{
+                         result: 'ok'
+                    }]
+                    return result;
+               } catch (e) {
+                    return 'error al crear la relacion del producto con su categoria';
+               }
           } catch (e) {
-               throw new Error("Error al crear el producto!")
-          }
-          try {
-               db.execute({
-                    sql: 'insert into product_categories ( id_product, category ) values (?,?);',
-                    args: [id, category]
-               })
-          } catch (e) {
-               throw new Error("Error al crear el producto!")
+               return 'error al crear el producto';
           }
      }
 }
