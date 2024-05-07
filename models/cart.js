@@ -13,13 +13,13 @@ export class CartModel {
      static updateCart(count, id_product, id) {
           db.execute({
                sql: 'update carrito set count = ? where id_product = ? and id_user = ?',
-               args: [count + 1, id_product, id]
+               args: [count, id_product, id]
           })
      }
 
      static addCart(id, newProduct) {
           db.execute({
-               sql: 'insert into carrito (id_user, id_product, count) values (?,?, ?)',
+               sql: 'insert into carrito (id_user, id_product, count) values (?,?,?)',
                args: [id, newProduct, 1]
           })
      }

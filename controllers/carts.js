@@ -10,14 +10,16 @@ export class CartController {
      static async addCart(req, res) {
           const cart = req.body.user_cart;
           const userID = req.body.user_id;
+          const productCount = req.body.product_count;
           const rows = await CartModel.getCart(userID);
           if (rows.some(({ id }) => id == cart)) {
                rows.map(({ id, stock, COUNT }) => {
                     if (id == cart) {
-                         if (stock - COUNT > 0) {
-                              CartModel.updateCart(COUNT, id, userID);
+                         if (stock - COUNT > 0 && stock - (productCount + COUNT) >= 0) {
+                              CartModel.updateCart((COUNT + productCount), id, userID);
                               return res.json({
-                                   cart: 'carrito actualizado'
+                                   cart: 'carrito actualizado',
+                                   count: COUNT + productCount
                               }).status(200)
                          } else {
                               return res.json({
