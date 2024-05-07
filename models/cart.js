@@ -1,9 +1,9 @@
 import { db } from "../db/sqlite.js";
 
 export class CartModel {
-     static async getIdProduct(id) {
+     static async getCart(id) {
           const { rows } = await db.execute({
-               sql: 'select id_product, count from carrito where id_user = ?',
+               sql: 'SELECT products.id, products.title, products.price, products.stock, products.imageUrl, carrito.count FROM products JOIN carrito ON products.id = carrito.id_product WHERE id_user = ?;',
                args: [id]
           })
 
