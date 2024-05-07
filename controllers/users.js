@@ -4,14 +4,10 @@ import jwt from 'jsonwebtoken'
 
 export class UserController {
      static async getUser(req, res) {
-          const secret = process.env.SECRET_KEY
-
-          const { username, password } = req.body;
-
+          const secret = process.env.SECRET_KEY || "secretKey-ecommerce-authorization"
+          const { username, password } = req.headers;
           const result = await UserModel.getUser({ username: username, password: password });
-
           if (result.length == 0) { return res.json({ message: 'user not found' }).status(400) }
-
           const token = jwt.sign({
                "id": result.id,
                "username": result.username,
@@ -22,22 +18,20 @@ export class UserController {
           },
                secret,
                {
-                    expiresIn: 240,
+                    expiresIn: '2h',
                })
-
-          res.json({ userInfo: result[0], token: token }).status(200)
+          return res.json({ userInfo: result[0], token: token }).status(200)
      }
 
      static async createUser(req, res) {
           const result = validateUser({ input: req.body })
           if (!result.success) {
-               res.json({ error: JSON.parse(result.error.message) }).status(400)
+               return res.json({ error: JSON.parse(result.error.message) }).status(400)
+          } else {
+               const data = await UserModel.createUser(result.data)
+               return res.json({
+                    'userInfo': data[0]
+               }).status(201);
           }
-
-          const data = await UserModel.createUser(result.data)
-
-          res.json({
-               'userInfo': data[0]
-          }).status(201);
      }
 }
