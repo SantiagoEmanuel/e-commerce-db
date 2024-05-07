@@ -6,8 +6,9 @@ export class ProductController {
           const data = await ProductModel.getAll();
           if (!data) {
                return res.status(500).json({ "message": "Server Internal Error", "status": 500 });
+          } else {
+               res.json(data).status(200);
           }
-          res.json(data).status(200);
      }
 
      static async getByID(req, res) {
@@ -15,27 +16,33 @@ export class ProductController {
           const data = await ProductModel.getById({ id: id });
           if (!data) {
                return res.status(500).json({ "message": "Server Internal Error", "status": 500 });
+          } else {
+               res.json(data).status(200);
           }
-          res.json(data).status(200);
      }
 
      static async getByCategory(req, res) {
           const { category } = req.params;
           const data = await ProductModel.getByCategory({ category: category });
-          if (data.length == 0) { return res.json({ data: [] }).status(404) }
-
-          return res.json(data).status(200)
+          if (data.length == 0) {
+               return res.json({ data: [] }).status(404)
+          }
+          else {
+               return res.json(data).status(200)
+          }
      }
 
-     static addProduct(req, res) {
+     static async addProduct(req, res) {
           const result = validateProduct({ input: req.body })
           if (!result.success) {
                return res.status(400).json({ error: JSON.parse(result.error.message) })
           }
-
-          const data = ProductModel.addProduct(result.data)
-          if (data) res.status(201).json({ message: data, success: 'Product created!' })
-
-          res.json({ error: 'Server error' }).status(500)
+          const data = await ProductModel.addProduct(result.data)
+          if (typeof data != 'string') {
+               return res.status(201).json({ message: data })
+          }
+          else {
+               return res.json({ error: data }).status(500)
+          }
      }
 }
