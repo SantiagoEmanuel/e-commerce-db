@@ -11,7 +11,7 @@ const whiteList = process.env.ALLOW_HOST
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.post((req, res, next) => {
+app.post('/user', (req, res, next) => {
      if (req.header['Content-Type'] !== 'application/json') {
           return next();
      }
