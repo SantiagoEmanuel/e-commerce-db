@@ -10,7 +10,20 @@ const whiteList = process.env.ALLOW_HOST
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-app.use(json())
+
+app.post((req, res, next) => {
+     if (req.header['Content-Type'] !== 'application/json') {
+          return next();
+     }
+     let body = ''
+     req.on('data', chunk => {
+          body += chunk.toString();
+     })
+     req.on('end', () => {
+          req.body = JSON.parse(body);
+     })
+     next()
+})
 app.use(cors());
 app.post(cors())
 app.disable(disable)
