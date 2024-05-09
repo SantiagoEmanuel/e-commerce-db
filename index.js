@@ -11,7 +11,7 @@ const whiteList = process.env.ALLOW_HOST
 const app = express();
 const PORT = process.env.PORT || 5000;
 app.use(json())
-app.use(cors({ origin: whiteList }));
+app.use(cors());
 app.disable(disable)
 
 
