@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { json } from 'express';
 import { disable } from './middleware/disable.js';
 import { productRouter } from './routes/products.js';
 import { userRouter } from './routes/users.js'
@@ -6,28 +6,12 @@ import { cartRouter } from './routes/carts.js';
 import { categoriesRouter } from './routes/categories.js';
 import { corsMiddleware } from './middleware/corsMiddleware.js'
 
-const whiteList = process.env.ALLOW_HOST
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.post('/user', (req, res, next) => {
-     if (req.method !== 'POST') {
-          return next();
-     }
-
-     let body = ''
-     req.on('data', chunk => {
-          body += chunk.toString();
-     })
-     req.on('end', () => {
-          req.body = body
-          next()
-     })
-})
-app.use(corsMiddleware());
+app.use(corsMiddleware())
+app.use(json())
 app.disable(disable)
-
 
 // TODO ▶️ create "categories" route and create categories in database, create the reference with products.
 app.use('/categories', categoriesRouter)
