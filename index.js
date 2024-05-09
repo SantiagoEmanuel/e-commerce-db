@@ -1,14 +1,17 @@
 import express, { json } from 'express';
-import { corsMiddleware } from './middleware/corsMiddleware.js';
 import { disable } from './middleware/disable.js';
 import { productRouter } from './routes/products.js';
 import { userRouter } from './routes/users.js'
 import { cartRouter } from './routes/carts.js';
 import { categoriesRouter } from './routes/categories.js';
+import cors from 'cors'
+
+const whiteList = process.env.ALLOW_HOST
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 app.use(json())
-app.use(corsMiddleware());
+app.use(cors({ origin: whiteList }));
 app.disable(disable)
 
 
