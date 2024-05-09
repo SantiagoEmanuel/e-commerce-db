@@ -11,7 +11,10 @@ const whiteList = process.env.ALLOW_HOST
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.post('/user', (req, res, next) => {
+app.use('/user', (req, res, next) => {
+     if (req.method !== 'POST') {
+          return next();
+     }
      if (req.header['Content-Type'] !== 'application/json') {
           return next();
      }
@@ -20,7 +23,8 @@ app.post('/user', (req, res, next) => {
           body += chunk.toString();
      })
      req.on('end', () => {
-          req.body = JSON.parse(body);
+          const data = JSON.parse(body);
+          req.body = data;
      })
      next()
 })
