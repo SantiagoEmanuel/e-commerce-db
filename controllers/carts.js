@@ -1,3 +1,4 @@
+import { object } from "zod";
 import { CartModel } from "../models/cart.js";
 
 export class CartController {
@@ -10,24 +11,12 @@ export class CartController {
      static async addCart(req, res) {
           const { id_user, cart } = req.body;
           const rows = await CartModel.getCart(id_user);
-          cart.map(({ id: cartId, count }) => {
-               if (rows.some(({ id }) => id == cartId)) {
-                    rows.map(({ id, stock, title }) => {
-                         if (id == cartId) {
-                              if (stock - count >= 0) {
-                                   CartModel.updateCart(count, id, id_user);
-                              } else {
-                                   return res.json({
-                                        error: '¡No puedes tener mas de este producto, con esa cantidad superas el stock!',
-                                        product: title,
-                                        id: id,
-                                        stock: stock - count
-                                   }).status(400)
-                              }
-                         }
-                    })
+          const newCart = Object.entries(cart);
+          newCart.map(([key, count]) => {
+               if (rows.some(({ id }) => id == key)) {
+                    CartModel.updateCart(count, key, id_user)
                } else {
-                    CartModel.addCart(id_user, cartId, count)
+                    CartModel.addCart(id_user, key, count)
                }
           })
           return res.json({
