@@ -17,10 +17,10 @@ export class CartModel {
           })
      }
 
-     static addCart(id, newProduct) {
+     static addCart(id, newProduct, count) {
           db.execute({
                sql: 'insert into carrito (id_user, id_product, count) values (?,?,?)',
-               args: [id, newProduct, 1]
+               args: [id, newProduct, count]
           })
      }
 }
