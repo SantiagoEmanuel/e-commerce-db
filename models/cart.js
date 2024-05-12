@@ -26,7 +26,7 @@ export class CartModel {
 
      static deleteCart(id) {
           db.execute({
-               sql: 'delete carrito where id = ?',
+               sql: 'delete carrito where id_user = ?',
                args: [id]
           })
      }
