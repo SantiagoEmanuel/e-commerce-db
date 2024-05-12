@@ -17,6 +17,20 @@ export class CartModel {
           })
      }
 
+     static deleteItemCart(id_product) {
+          db.execute({
+               sql: 'delete from carrito where id_product = ?',
+               args: [id_product]
+          })
+     }
+
+     static deleteCart(id) {
+          db.execute({
+               sql: 'delete carrito where id = ?',
+               args: [id]
+          })
+     }
+
      static addCart(id_user, id_product, count) {
           db.execute({
                sql: 'insert into carrito (id_user, id_product, count) values (?,?,?)',
