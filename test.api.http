@@ -27,7 +27,7 @@ Content-Type: application/json
 
 {
      "username": "santiago",
-     "password": "Gorgisan-1145"
+     "password": "**********"
 }
 
 ### POST create user
